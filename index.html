@@ -1,0 +1,606 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AgriMitra | Smart Farming Platform</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#171923;background:#f4f4f6;--ink:#171923;--muted:#777987;--line:#e5e5eb;--paper:#fff;--dark:#111218;--blue:#5b5cf0;--blue2:#7778ff;--orange:#ff8a4c;--cyan:#42c6d9;--soft:#f0f0ff;--shadow:0 12px 35px rgba(22,23,35,.06)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0%,#ececff 0,transparent 27%),#f4f4f6}button,input,select,textarea{font:inherit}button{cursor:pointer}aside{position:fixed;inset:0 auto 0 0;width:258px;background:var(--dark);color:#f8f8fb;padding:27px 17px;overflow:auto;border-right:1px solid #292a34}.brand{font-size:25px;font-weight:850;margin:0 8px 8px;letter-spacing:-.8px}.tag{font-size:10px;color:#a6a7b5;margin:0 8px 28px;letter-spacing:1.8px}.nav{width:100%;text-align:left;background:none;border:1px solid transparent;color:#bfc0cc;padding:13px;border-radius:11px;margin:3px 0;font-size:13px;transition:.2s}.nav:hover,.nav.active{background:#282936;color:#fff;border-color:#414252}.nav.active{box-shadow:inset 3px 0 var(--blue2)}.nav span{margin-right:10px}main{margin-left:258px;padding:32px;max-width:1650px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px}.eyebrow{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:2px;font-weight:800}h1{font-size:31px;margin:8px 0;letter-spacing:-1.1px}h2{font-size:19px;margin:0 0 14px;letter-spacing:-.35px}p{line-height:1.6;color:#696b78}.pill{display:inline-block;background:#eeefff;color:#4949ce;padding:7px 11px;border-radius:30px;font-size:11px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:22px 0}.card{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:22px;box-shadow:var(--shadow)}.metric{font-size:30px;font-weight:850;color:var(--ink);margin:12px 0 4px;letter-spacing:-1px}.muted{font-size:12px;color:#92939e}.hero{background:linear-gradient(115deg,#171821 0%,#292b40 65%,#4244a8 100%);color:#fff;padding:32px;border-radius:21px;margin:22px 0;position:relative;overflow:hidden;box-shadow:0 18px 40px #22233a22}.hero:after{content:'✳';position:absolute;right:7%;top:-40px;font-size:210px;color:#ffffff0c;transform:rotate(18deg)}.hero p{color:#d0d1df;max-width:660px}.hero h2{font-size:29px;max-width:600px}.button{border:0;background:var(--blue);color:white;border-radius:10px;padding:12px 17px;font-weight:750;box-shadow:0 5px 14px #5b5cf033;transition:transform .18s,filter .18s}.button:hover{filter:brightness(1.08);transform:translateY(-1px)}.button.secondary{background:#f0f0ff;color:#4c4dca;box-shadow:none}.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}label{display:block;font-size:12px;font-weight:700;color:#444653;margin-bottom:7px}input,select,textarea{width:100%;padding:12px 13px;border:1px solid #dedfe7;border-radius:10px;background:#fff;color:#20212b;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #5b5cf018}textarea{min-height:100px}.field{margin:8px 0}.result{background:#f1f1ff;border:1px solid #dadaff;border-radius:13px;padding:16px;margin-top:18px;white-space:pre-wrap;line-height:1.65;color:#30314c}.warning{background:#fff4eb;border:1px solid #ffd8c2;border-radius:12px;padding:12px;color:#92502c;font-size:13px;margin:15px 0}.hidden{display:none}.table{width:100%;border-collapse:collapse}td,th{padding:12px;text-align:left;border-bottom:1px solid #edf0f3;font-size:13px}th{color:#777987}.bar{height:9px;background:#e9e9f0;border-radius:12px;overflow:hidden}.bar i{display:block;background:linear-gradient(90deg,var(--blue),var(--cyan));height:100%}.flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.mini{background:#f6f6fa;padding:15px;border-radius:12px;border:1px solid #ededf2}.mode{font-size:11px;color:#b65d2c;background:#fff0e7;border-radius:20px;padding:7px 10px;font-weight:800}.footer{margin-top:40px;color:#92939e;font-size:11px}.map{height:290px;border:1px solid #d9d9e6;border-radius:16px;position:relative;overflow:hidden;background-color:#f1f1f7;background-image:linear-gradient(35deg,transparent 47%,#d8d9e5 48%,#d8d9e5 50%,transparent 51%),linear-gradient(125deg,transparent 47%,#dedfeb 48%,#dedfeb 50%,transparent 51%);background-size:85px 85px}.map:after{content:'SIMULATION MAP • NOT LIVE GPS';position:absolute;left:12px;bottom:12px;background:#171821e8;padding:8px 10px;border-radius:7px;font-size:9px;color:#fff;letter-spacing:.7px}.drone{position:absolute;left:var(--x,25%);top:var(--y,35%);font-size:34px;transition:all .5s;filter:drop-shadow(0 3px 4px #5556)}.point{position:absolute;border-radius:50%;background:var(--orange);width:10px;height:10px;box-shadow:0 0 0 4px #ff8a4c22}.note{font-size:12px;color:#777987}.two{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}.language{max-width:190px}.upload{border:2px dashed #bdbdf2;border-radius:12px;padding:22px;text-align:center;background:#fafaff}@media(max-width:950px){aside{position:static;width:auto;padding:14px}.brand{font-size:21px}.tag{margin-bottom:8px}.navwrap{display:flex;overflow:auto;gap:4px}.nav{white-space:nowrap;width:auto}main{margin:0;padding:16px}.grid,.two{grid-template-columns:1fr 1fr}}@media(max-width:650px){#droneMediaGallery{grid-template-columns:repeat(2,minmax(0,1fr))!important}.grid,.two,.form{grid-template-columns:1fr}.top{align-items:flex-start}h1{font-size:25px}.card{padding:16px}.hero{padding:23px}.hero h2{font-size:24px}}
+
+
+/* AgriMitra V3 — modern editorial / neo-dashboard refresh */
+:root{color-scheme:light;--ink:#171923;--muted:#747887;--line:#e9eaf0;--paper:#fff;--dark:#11131c;--blue:#5658e8;--blue2:#8a7cff;--orange:#ff895e;--cyan:#45c8dc;--soft:#f2f2ff;--shadow:0 18px 48px rgba(25,27,45,.075)}
+html{scroll-behavior:smooth}body{background:radial-gradient(ellipse at 78% -10%,rgba(101,93,255,.13),transparent 34%),radial-gradient(ellipse at 105% 38%,rgba(69,200,220,.09),transparent 26%),#f6f7fb;color:var(--ink);letter-spacing:-.12px}
+aside{width:270px;padding:28px 18px 22px;background:linear-gradient(165deg,#171925 0%,#10121b 62%,#20213a 100%);border-right:1px solid rgba(255,255,255,.08);box-shadow:12px 0 40px rgba(17,19,28,.08)}.brand{font-size:26px;letter-spacing:-1.1px;font-weight:900}.tag{font-size:9px;letter-spacing:2.1px;color:#9699ad;margin-bottom:34px}
+.nav{position:relative;padding:13px 14px;margin:4px 0;border-radius:13px;color:#bfc2d1;font-size:12.5px}.nav:hover{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.07);transform:translateX(2px)}.nav.active{background:linear-gradient(100deg,rgba(91,91,240,.28),rgba(138,124,255,.11));border-color:rgba(138,124,255,.28);box-shadow:inset 3px 0 #8a7cff,0 7px 22px rgba(0,0,0,.12);color:#fff}
+main{max-width:1700px;padding:38px 42px 48px}.top{position:sticky;top:0;z-index:5;margin:-38px -42px 25px;padding:22px 42px 18px;background:rgba(246,247,251,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(225,227,236,.75)}.eyebrow{font-size:10px;letter-spacing:2.3px;color:#6668e9}h1{font-size:30px;letter-spacing:-1.25px;font-weight:850}h2{font-size:18px;font-weight:800;letter-spacing:-.55px}p{color:#737787;font-size:13px}.pill{background:#eeeeff;color:#4e50d1;border:1px solid #e0e1ff;padding:7px 12px}
+.grid{gap:17px;margin:20px 0}.card{border:1px solid rgba(224,226,236,.9);border-radius:19px;padding:23px;box-shadow:0 8px 28px rgba(23,25,40,.035);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}.card:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(23,25,40,.075);border-color:#d9dafe}.metric{font-size:32px;letter-spacing:-1.5px;font-weight:850}
+.hero{min-height:245px;padding:37px 38px;border-radius:24px;background:radial-gradient(circle at 82% 22%,rgba(125,118,255,.42),transparent 24%),radial-gradient(circle at 94% 100%,rgba(69,200,220,.24),transparent 29%),linear-gradient(115deg,#171923 0%,#24263b 58%,#373a77 100%);box-shadow:0 22px 55px rgba(31,33,68,.17)}.hero:after{content:"✳";right:8%;top:-53px;font-size:245px;color:rgba(255,255,255,.055)}.hero h2{font-size:34px;line-height:1.12;letter-spacing:-1.4px;max-width:580px;margin:17px 0 10px}.hero p{font-size:13.5px;max-width:620px;color:#d4d6e4}
+.button{background:linear-gradient(115deg,#5558e8,#7770f2);border-radius:12px;padding:12px 17px;box-shadow:0 8px 18px rgba(86,88,232,.2)}.button:hover{box-shadow:0 12px 24px rgba(86,88,232,.27)}.button.secondary{background:#fff;color:#4547c7;border:1px solid #e2e3ff;box-shadow:none}.button.secondary:hover{background:#f5f5ff;border-color:#cfd0ff}
+input,select,textarea{border:1px solid #e1e3eb;border-radius:12px;padding:13px 14px;background:#fcfcfe}input:focus,select:focus,textarea:focus{border-color:#7778f4;box-shadow:0 0 0 4px rgba(91,91,240,.10)}label{font-size:11px;letter-spacing:.15px;color:#505363}.result{background:linear-gradient(135deg,#f3f3ff,#f8fbff);border:1px solid #e1e2ff;border-radius:15px;color:#30324d}.warning{background:#fff6f0;border-color:#ffe0cf;color:#9b542f;border-radius:14px}.mini{background:linear-gradient(145deg,#fbfbff,#f5f6fb);border:1px solid #eaebf2;border-radius:15px}.bar{background:#eeeff5;border-radius:20px}.bar i{background:linear-gradient(90deg,#595ce9,#45c8dc)}.map{border-radius:18px;background-color:#f2f3f8;border-color:#e2e4ed}.map:after{border:1px solid rgba(255,255,255,.12);box-shadow:0 5px 16px #1113}.upload{border-color:#c9caff;background:#fafaff;border-radius:16px}.mode{background:#fff0e8;color:#b65d2c;border:1px solid #ffdfd0}.table th{font-size:10px;text-transform:uppercase;letter-spacing:1px}td,th{padding:14px 12px}.footer{padding-top:20px;border-top:1px solid #e7e8ef}
+@media(max-width:950px){aside{width:auto;padding:15px 16px;background:linear-gradient(100deg,#171925,#222440)}.tag{margin-bottom:10px}main{padding:20px 20px 36px}.top{margin:-20px -20px 20px;padding:17px 20px 15px}}
+@media(max-width:650px){main{padding:14px 14px 28px}.top{margin:-14px -14px 16px;padding:14px;align-items:center}.top .pill{font-size:9px}h1{font-size:23px}.hero{padding:24px;min-height:unset;border-radius:20px}.hero h2{font-size:27px}.card{padding:17px;border-radius:16px}.grid{gap:12px}}
+
+
+/* AgriMitra V4 — airy light-blue modern theme */
+:root{
+  --ink:#17263b; --muted:#687b91; --line:#dce8f3; --paper:#ffffff;
+  --dark:#13243a; --blue:#3986d9; --blue2:#73b6f4;
+  --orange:#f29b62; --cyan:#51bfd4; --soft:#eaf5ff;
+  --shadow:0 16px 42px rgba(35,83,126,.08);
+}
+body{
+  color:#17263b;
+  background:
+    radial-gradient(ellipse at 82% -8%,rgba(111,183,245,.22),transparent 34%),
+    radial-gradient(ellipse at 4% 48%,rgba(190,224,250,.23),transparent 30%),
+    #f3f8fd;
+}
+aside{
+  background:linear-gradient(165deg,#18334f 0%,#142a43 65%,#1c4264 100%);
+  border-right:1px solid rgba(255,255,255,.12);
+  box-shadow:10px 0 35px rgba(24,57,87,.08);
+}
+.nav{color:#d2e2f1}
+.nav:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.1)}
+.nav.active{
+  background:linear-gradient(100deg,rgba(76,157,226,.34),rgba(139,204,250,.13));
+  border-color:rgba(146,207,250,.32);
+  box-shadow:inset 3px 0 #8bcaff,0 7px 22px rgba(0,0,0,.10);
+  color:#fff;
+}
+.top{
+  background:rgba(243,248,253,.86);
+  border-bottom:1px solid rgba(216,231,244,.85);
+}
+.eyebrow{color:#3986d9}
+.pill{background:#e6f3ff;color:#286ba9;border:1px solid #d2eaff}
+.card{
+  border:1px solid rgba(218,232,245,.96);
+  box-shadow:0 8px 26px rgba(39,89,132,.045);
+}
+.card:hover{border-color:#c4e1f8;box-shadow:0 17px 36px rgba(39,89,132,.09)}
+.hero{
+  background:
+    radial-gradient(circle at 82% 22%,rgba(134,202,250,.35),transparent 25%),
+    radial-gradient(circle at 95% 100%,rgba(81,191,212,.24),transparent 29%),
+    linear-gradient(115deg,#18334f 0%,#24527b 58%,#397db5 100%);
+  box-shadow:0 20px 48px rgba(38,91,139,.17);
+}
+.hero p{color:#dcecf9}
+.button{
+  background:linear-gradient(115deg,#3986d9,#62a9e9);
+  box-shadow:0 8px 18px rgba(57,134,217,.20);
+}
+.button:hover{box-shadow:0 12px 24px rgba(57,134,217,.27)}
+.button.secondary{background:#eaf5ff;color:#286ba9;border:1px solid #d5eafa;box-shadow:none}
+.button.secondary:hover{background:#deefff;border-color:#bdddf7}
+input,select,textarea{border:1px solid #d8e5f0;background:#fbfdff}
+input:focus,select:focus,textarea:focus{border-color:#69a9e4;box-shadow:0 0 0 4px rgba(79,153,219,.12)}
+.result{background:linear-gradient(135deg,#edf7ff,#f7fbff);border:1px solid #d8ebfa;color:#28435e}
+.mini{background:linear-gradient(145deg,#f8fcff,#eff7fd);border:1px solid #e0edf7}
+.bar{background:#e5eef6}
+.bar i{background:linear-gradient(90deg,#3986d9,#51bfd4)}
+.map{background-color:#edf5fb;border-color:#d8e7f3}
+.upload{border-color:#a9d2f3;background:#f7fbff}
+.mode{background:#fff3e9;color:#a85f2e;border:1px solid #ffdfc8}
+.warning{background:#fff7ef;border-color:#ffe4cf;color:#92552f}
+@media(max-width:950px){
+  aside{background:linear-gradient(100deg,#18334f,#24527b)}
+}
+
+
+/* AgriMitra V5 — Midnight Luxury theme */
+:root{
+  color-scheme:dark;
+  --ink:#edf2fa; --muted:#9aa8bb; --line:#29364a; --paper:#192538;
+  --dark:#0b1422; --blue:#7aaeff; --blue2:#a8ccff;
+  --orange:#f3a36f; --cyan:#70d4e5; --soft:#22344c;
+  --shadow:0 18px 48px rgba(0,0,0,.22);
+}
+html{background:#0b1422}
+body{
+  color:#edf2fa;
+  background:
+    radial-gradient(ellipse at 83% -8%,rgba(81,135,202,.20),transparent 34%),
+    radial-gradient(ellipse at 5% 52%,rgba(55,103,154,.12),transparent 30%),
+    #0e1929;
+}
+aside{
+  background:linear-gradient(165deg,#101d30 0%,#0b1422 68%,#172b43 100%);
+  border-right:1px solid #263750;
+  box-shadow:12px 0 40px rgba(0,0,0,.18);
+}
+.brand{color:#f4f7fc}
+.tag{color:#91a5bd}
+.nav{color:#b8c7d9}
+.nav:hover{background:#1b2b40;border-color:#2a405b;color:#fff}
+.nav.active{
+  background:linear-gradient(100deg,rgba(91,151,220,.25),rgba(105,174,224,.08));
+  border-color:#345274;
+  box-shadow:inset 3px 0 #8dbdff,0 8px 22px rgba(0,0,0,.16);
+  color:#fff;
+}
+main{color:#edf2fa}
+.top{
+  background:rgba(14,25,41,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(45,65,89,.72);
+}
+.eyebrow{color:#91bdff}
+h1,h2,h3{color:#f0f5fc}
+p{color:#a9b6c8}
+.pill{background:#203752;color:#b8d7ff;border:1px solid #345273}
+.card{
+  background:linear-gradient(145deg,#1a293e,#172437);
+  border:1px solid #2b3c53;
+  box-shadow:0 10px 30px rgba(0,0,0,.16);
+}
+.card:hover{border-color:#45658a;box-shadow:0 18px 38px rgba(0,0,0,.24)}
+.metric{color:#f2f6fc}
+.muted,.note,.footer{color:#91a1b5}
+.hero{
+  background:
+    radial-gradient(circle at 82% 20%,rgba(108,163,225,.25),transparent 25%),
+    radial-gradient(circle at 95% 100%,rgba(91,185,203,.16),transparent 29%),
+    linear-gradient(115deg,#14243a 0%,#1c3855 60%,#2a4b70 100%);
+  border:1px solid #355271;
+  box-shadow:0 22px 55px rgba(0,0,0,.25);
+}
+.hero p{color:#c5d4e6}
+.hero h2{color:#fff}
+.button{
+  background:linear-gradient(115deg,#568ed0,#83b8f2);
+  color:#07182b;
+  box-shadow:0 8px 20px rgba(73,139,207,.22);
+}
+.button:hover{filter:brightness(1.08)}
+.button.secondary{
+  background:#243a55;color:#c9e0ff;border:1px solid #3a5878;box-shadow:none;
+}
+.button.secondary:hover{background:#2b4564}
+label{color:#c4d0df}
+input,select,textarea{
+  background:#101d2e;color:#edf4fc;border:1px solid #34475f;
+}
+input::placeholder,textarea::placeholder{color:#71839a}
+input:focus,select:focus,textarea:focus{
+  border-color:#80b5ef;box-shadow:0 0 0 3px rgba(113,171,231,.15);
+}
+.result{
+  background:linear-gradient(135deg,#1d3450,#1a2b42);
+  border:1px solid #3b5b7b;color:#dcecff;
+}
+.warning{background:#3b2b25;border:1px solid #704a35;color:#ffd0ad}
+td,th{border-bottom:1px solid #2b3b50;color:#c7d3e1}
+th{color:#91a4ba}
+.bar{background:#2a3a50}
+.bar i{background:linear-gradient(90deg,#77aef0,#70d4e5)}
+.mini{background:linear-gradient(145deg,#203149,#19283b);border:1px solid #30445e;color:#e4edf8}
+.mode{background:#463326;color:#ffc79f;border:1px solid #704b35}
+.map{
+  border:1px solid #344a64;
+  background-color:#1b2c42;
+  background-image:
+    linear-gradient(35deg,transparent 47%,#344960 48%,#344960 50%,transparent 51%),
+    linear-gradient(125deg,transparent 47%,#30465d 48%,#30465d 50%,transparent 51%);
+}
+.map:after{background:#091321ed;color:#c8ddf3}
+.upload{background:#172a40;border:1px dashed #5b83ad;color:#d8eaff}
+.footer{border-top:1px solid #29394e}
+.hidden{color:#edf2fa}
+@media(max-width:950px){
+  aside{background:linear-gradient(100deg,#101d30,#1b3855)}
+}
+
+
+/* AgriMitra motion layer */
+:root{scroll-behavior:smooth}
+@keyframes agriRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes agriFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes agriGlow{0%,100%{box-shadow:0 0 0 rgba(74,211,164,0)}50%{box-shadow:0 0 24px rgba(74,211,164,.16)}}
+@keyframes agriPulse{0%,100%{opacity:.75}50%{opacity:1}}
+@keyframes agriShine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.card,.mini,.metric-card,.panel{animation:agriRise .55s ease both}
+.card:nth-child(2),.mini:nth-child(2){animation-delay:.06s}
+.card:nth-child(3),.mini:nth-child(3){animation-delay:.12s}
+button,.button{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
+button:hover,.button:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 9px 22px rgba(20,40,70,.15)}
+button:active,.button:active{transform:scale(.98)}
+.metric{animation:agriPulse 3s ease-in-out infinite}
+.result{animation:agriRise .45s ease both}
+.pill{animation:agriGlow 4s ease-in-out infinite}
+#farmMapCanvas,#droneMap,#droneDrop{transition:box-shadow .25s ease,transform .25s ease}
+#farmMapCanvas:hover,#droneDrop:hover{box-shadow:0 12px 28px rgba(20,40,70,.12);transform:translateY(-2px)}
+nav a,.nav-item{transition:background .2s ease,color .2s ease,transform .2s ease}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+
+/* AGRIMITRA — forest-green agricultural command-center theme */
+:root{color-scheme:dark;--ink:#edf7ed;--muted:#a8bca9;--line:rgba(190,224,190,.14);--paper:rgba(20,53,36,.84);--dark:#071b12;--blue:#8acb79;--blue2:#b5e69b;--cyan:#79c8a0;--soft:#183c29;--shadow:0 14px 38px rgba(0,0,0,.22)}
+html,body{min-height:100%;background:#071b12;color:#edf7ed}
+body{background:radial-gradient(ellipse at 70% 0%,rgba(65,130,75,.28),transparent 38%),linear-gradient(135deg,#071a11,#0b2418 55%,#102b1d);color:#edf7ed}
+aside{width:252px;background:linear-gradient(180deg,#07190f 0%,#0b2417 55%,#102b1b 100%);border-right:1px solid rgba(185,229,175,.13);box-shadow:10px 0 38px rgba(0,0,0,.24)}
+.brand{color:#efffee;font-size:25px;letter-spacing:-.9px}
+.tag{color:#8cae91}
+.nav{color:#b6cbb8;border-color:transparent}
+.nav:hover,.nav.active{background:linear-gradient(100deg,rgba(113,190,91,.25),rgba(113,190,91,.08));border-color:rgba(153,219,132,.2);color:#f5fff2}
+.nav.active{box-shadow:inset 3px 0 #9cdb7d,0 7px 22px rgba(0,0,0,.13)}
+main{max-width:1800px;padding:30px 34px 48px}
+.top{background:rgba(7,27,17,.82);border-bottom:1px solid rgba(190,224,190,.12);backdrop-filter:blur(18px)}
+.eyebrow{color:#a9df8b}
+h1,h2,h3{color:#f2fff0}
+p{color:#b4c8b5}
+.pill{background:rgba(119,190,94,.16);color:#bceba5;border:1px solid rgba(157,221,130,.2)}
+.card{background:linear-gradient(145deg,rgba(23,59,39,.94),rgba(13,40,26,.94));border:1px solid rgba(183,224,176,.13);box-shadow:0 10px 28px rgba(0,0,0,.19);color:#edf7ed}
+.card:hover{border-color:rgba(166,220,144,.35);box-shadow:0 18px 38px rgba(0,0,0,.28)}
+.metric{color:#f2fff0}
+.muted,.note{color:#9db6a0}
+.hero{min-height:250px;border:1px solid rgba(198,232,170,.18);background:
+radial-gradient(ellipse at 76% 20%,rgba(151,205,105,.26),transparent 28%),
+radial-gradient(ellipse at 93% 95%,rgba(54,139,84,.36),transparent 33%),
+linear-gradient(110deg,rgba(5,28,16,.98),rgba(17,65,36,.88) 52%,rgba(42,91,46,.78)),
+repeating-linear-gradient(165deg,transparent 0 34px,rgba(185,225,154,.07) 35px 37px);
+box-shadow:0 22px 55px rgba(0,0,0,.3)}
+.hero:after{content:"🌿";right:8%;top:6%;font-size:125px;color:rgba(255,255,255,.10);filter:grayscale(.2);animation:agriFloat 6s ease-in-out infinite}
+.hero h2{color:#f4fff1}
+.hero p{color:#c4d9c4}
+.button{background:linear-gradient(115deg,#6fae54,#9bd17b);color:#0c2413;box-shadow:0 8px 20px rgba(91,156,66,.2)}
+.button.secondary{background:rgba(167,218,145,.12);color:#d7f5c9;border:1px solid rgba(169,221,144,.22);box-shadow:none}
+input,select,textarea{background:#0b2418;color:#eaf5e8;border:1px solid rgba(181,220,176,.2)}
+input::placeholder,textarea::placeholder{color:#819b84}
+label{color:#c7dac7}
+.result{background:rgba(104,169,78,.12);border:1px solid rgba(153,216,126,.24);color:#e4f6dd}
+.warning{background:rgba(192,112,54,.13);border-color:rgba(232,161,104,.25);color:#f2c49d}
+.mini{background:linear-gradient(145deg,rgba(31,72,46,.9),rgba(17,48,31,.95));border:1px solid rgba(183,224,176,.12);color:#eaf5e8}
+.bar{background:rgba(225,245,220,.12)}.bar i{background:linear-gradient(90deg,#83c66a,#c1e68e)}
+.map{border-color:rgba(183,224,176,.18)}
+.footer{color:#7f9b83}
+.upload{background:rgba(122,180,97,.08);border-color:rgba(170,218,143,.35)}
+table td,table th{border-color:rgba(190,224,190,.13);color:#d9e9d8}
+a{color:#b7e99e}
+@keyframes fieldGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(144,205,111,0))}50%{filter:drop-shadow(0 0 12px rgba(144,205,111,.2))}}
+.hero{animation:fieldGlow 6s ease-in-out infinite}
+@media(max-width:950px){aside{width:auto;background:linear-gradient(90deg,#07190f,#102b1b);border-bottom:1px solid rgba(185,229,175,.13)}main{padding:18px}.top{margin:-18px -18px 20px;padding:16px 18px}}
+@media(max-width:650px){.nav{padding:10px 12px;font-size:12px}.brand{font-size:21px}.hero{min-height:220px;padding:22px}.hero h2{font-size:26px}.grid,.two{grid-template-columns:1fr}.card{padding:17px}}
+
+</style></head><body><aside><div class="brand">🌱 AgriMitra</div><div class="tag">SMART AGRICULTURE • FARMER INTELLIGENCE</div><div class="navwrap" id="nav"></div><p style="font-size:11px;color:#bad8c4;padding:10px">FARMER-FIRST • DATA-DRIVEN • SUSTAINABLE AGRICULTURE</p></aside><main><div class="top"><div><div class="eyebrow">AGRICULTURE INTELLIGENCE PLATFORM</div><h1 id="heading">Farmer Dashboard</h1></div><span class="pill">● AGRI INTELLIGENCE</span></div><div id="content"></div><div class="footer">AgriMitra • Forest Green Edition • Simulated observations are marked. Verify all agricultural recommendations with local experts.</div></main><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
+const sections=[['dashboard','🏡','Farmer Dashboard'],['farm','🗺️','My Farm & Area Mapping'],['crop','🌾','AI Crop Recommendation'],['weather','🌦️','Weather Forecast'],['disease','🔬','Crop Disease Detection'],['market','📈','Market Price Comparison'],['distribution','🤝','Direct Farmer Distribution'],['harvestloss','🌾','Harvesting Loss Management'],['profit','💰','Cost & Profit Calculator'],['translate','🌐','Multilingual Translation'],['drone','🚁','Drone Management & Control'],['irrigation','💧','Drone & Weather Smart Irrigation']];
+let current='dashboard',droneX=25,droneY=35,flight=false,flightTimer=null,telemetry=[],selectedImage=null,droneMedia=[];
+const $=id=>document.getElementById(id),fmt=n=>new Intl.NumberFormat('en-IN',{maximumFractionDigits:2}).format(n),escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const card=(title,body)=>`<div class="card"><h2>${title}</h2>${body}</div>`;
+const field=(id,label,type='number',value='',extra='')=>`<div class="field"><label for="${id}">${label}</label><input id="${id}" type="${type}" value="${value}" ${extra}></div>`;
+const select=(id,label,opts)=>`<div class="field"><label for="${id}">${label}</label><select id="${id}">${opts.map(o=>`<option>${o}</option>`).join('')}</select></div>`;
+const warn=s=>`<div class="warning">⚠ ${s}</div>`;
+const templates={
+
+ harvestloss:()=>`${card('Harvesting Loss Management',`<p>Estimate crop losses during harvesting, calculate their financial impact and save field observations to the AgriMitra backend.</p><div class="form">
+${field('hlCrop','Crop name','text','','placeholder="e.g. Paddy"')}
+${field('hlArea','Harvested area (acres)','number','1','min="0.01" step="0.01"')}
+${field('hlExpected','Expected yield (kg)','number','2000','min="0" step="0.1"')}
+${field('hlActual','Actual collected yield (kg)','number','1850','min="0" step="0.1"')}
+${field('hlPrice','Market value (₹ per kg)','number','25','min="0" step="0.1"')}
+${select('hlMethod','Harvesting method',['Manual','Combine harvester','Reaper','Other'])}
+${field('hlDate','Harvest date','date','')}
+</div><div class="flex" style="gap:10px;flex-wrap:wrap"><button class="button" onclick="calculateHarvestLoss()">Calculate harvesting loss</button><button class="button secondary" onclick="saveHarvestLoss()">Save observation</button></div><div id="hlResult" style="margin-top:16px"></div>`)}<div class="two" style="margin-top:18px">${card('Saved harvesting observations',`<div id="harvestLossHistory"><p class="note">Loading observations…</p></div>`)}${card('Loss reduction checklist',`<ul><li>Harvest at suitable crop maturity.</li><li>Check machine settings and forward speed.</li><li>Reduce spillage during cutting, threshing and collection.</li><li>Dry and store produce correctly.</li><li>Record field measurements to compare methods.</li></ul><p class="note">Calculator estimates the gap between expected and collected yield. For accurate field loss, measure pre-harvest and post-harvest losses separately.</p>`)}</div>`,
+
+
+ distribution:()=>`${card('Sell directly to buyers',`<p>Farmers can list their harvest and connect directly with local buyers, retailers, hotels and wholesalers. No intermediary marketplace commission is calculated in this prototype.</p><div class="form">
+${field('distFarmer','Farmer / farm name','text','','placeholder="Your name or farm"')}
+${field('distVillage','Village / district','text','','placeholder="Village, district"')}
+${field('distCrop','Crop / produce','text','','placeholder="e.g. Tomato"')}
+${field('distQuantity','Available quantity (kg)','number','100','min="1"')}
+${field('distPrice','Expected price per kg (₹)','number','25','min="1" step="0.5"')}
+${select('distQuality','Produce quality',['Select quality','Grade A','Grade B','Organic (self-declared)','Standard'])}
+${select('distBuyerType','Preferred buyer',['Any buyer','Retailer','Wholesaler','Hotel / Restaurant','Food processor','Direct consumer'])}
+${field('distPhone','Contact phone','tel','','placeholder="Enter contact number"')}
+</div><div class="field"><label for="distNotes">Harvest / delivery details</label><textarea id="distNotes" placeholder="Harvest date, delivery availability, pickup details…"></textarea></div><button class="button" onclick="publishProduce()">Publish produce listing</button><div id="distStatus" style="margin-top:12px"></div>`)}<div class="two" style="margin-top:18px">${card('Available produce listings',`<p class="note">Browse produce listed by farmers and contact them directly to discuss price and delivery.</p><div id="distributionListings"><p class="note">Loading listings…</p></div>`)}${card('How direct distribution works',`<ol><li>Farmer publishes crop, quantity, price and location.</li><li>Buyer browses available produce.</li><li>Buyer contacts farmer directly to negotiate price and delivery.</li><li>Farmer and buyer arrange payment and transport independently.</li></ol><p class="note">AgriMitra currently connects buyers and farmers; it does not process payments, guarantee quality or arrange logistics.</p>`)}</div>`,
+
+ farm:()=>`${card('Register and map your farm',`<p>Mark your farm boundary on the map. The website calculates the enclosed area and lets you save the farm profile.</p><div class="form">
+${field('farmName','Farm name','text','','placeholder="e.g. North Field"')}
+${field('farmerName','Farmer name','text','','placeholder="Enter farmer name"')}
+${field('farmVillage','Village / Town','text','','placeholder="Village or town"')}
+${field('farmDistrict','District','text','Coimbatore','placeholder="District"')}
+${select('farmSoil','Soil type',['Select soil type','Red soil','Black soil','Sandy soil','Clay soil','Loamy soil','Other'])}
+${select('farmWater','Water source',['Select water source','Borewell','Open well','Canal','Rainfed','Drip irrigation','Other'])}
+${select('farmCrop','Current / planned crop',['Select crop','Paddy','Maize','Groundnut','Millets','Coconut','Tomato','Banana','Cotton','Other'])}
+</div><div class="flex" style="margin:14px 0"><button class="button" onclick="locateFarm()">◎ Use my GPS location</button><button class="button secondary" onclick="undoFarmPoint()">↶ Undo last point</button><button class="button secondary" onclick="clearFarmBoundary()">Clear boundary</button><button class="button secondary" onclick="finishFarmBoundary()">Finish boundary</button></div><div id="farmMapCanvas" style="height:390px;border:1px solid #d9d9e6;border-radius:15px;overflow:hidden;z-index:1"></div><p class="note">Tap/click around the edge of your field to add boundary points. Add at least 3 points, then select “Finish boundary”. You can zoom and move the map.</p><div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="mini">Boundary points<div class="metric" id="farmPointCount">0</div></div><div class="mini">Area (acres)<div class="metric" id="farmAreaAcres">—</div></div><div class="mini">Area (hectares)<div class="metric" id="farmAreaHectares">—</div></div></div><div class="field"><label for="farmNotes">Additional notes (optional)</label><textarea id="farmNotes" placeholder="Irrigation details, field notes, etc."></textarea></div><button class="button" onclick="saveFarm()">Save farm details</button><div id="farmSaveStatus" style="margin-top:12px"></div>`)}<div class="two" style="margin-top:18px">${card('Saved farms',`<div id="savedFarmList"><p class="note">Loading saved farms…</p></div>`)}${card('How area is calculated',`<p>Area is calculated from the GPS coordinates of the boundary polygon using a spherical-earth approximation.</p><p class="note">Map imagery and GPS accuracy depend on your device and network. Use a land survey or official records for legal measurements.</p>`)}</div>`,
+
+ dashboard:()=>`<div class="hero"><span class="pill">FARM INTELLIGENCE</span><h2>Better farming decisions begin here.</h2><p>Register your farm, map its boundary, and explore crop planning, local weather, farm economics, language support and drone monitoring from one dashboard.</p><button class="button secondary" onclick="go('crop')">Explore crop planning →</button></div><div class="grid">${[['9','Connected modules'],['₹ 0','Software demo cost'],['SIM','Drone operation mode']].map(([v,k])=>card(k,`<div class="metric">${v}</div><div class="muted">Prototype status</div>`)).join('')}</div><div class="two">${card('Quick access',`<div class="grid" style="grid-template-columns:1fr 1fr">${sections.slice(1).map(s=>`<button class="button secondary" onclick="go('${s[0]}')">${s[1]} ${s[2]}</button>`).join('')}</div>`)}${card('Build status',`<p>Available now: navigation, crop rule-based suggestions, cost calculations, illustrative market comparison, drone simulation and sensor-data import.</p><p>Needs integration: real forecasts, market feeds, trained crop/disease AI, translation provider and physical drone telemetry.</p>${warn('Dashboard values are prototype indicators, not real farm measurements.')}`)}</div>`,
+ crop:()=>`${card('Crop suitability explorer',`<p>Rule-based demonstration of crop suitability. This is <b>not yet a trained AI recommendation engine</b>.</p><div class="form">${select('soil','Soil type',['Loamy','Clay','Sandy','Black','Red'])}${select('season','Season',['Kharif / Monsoon','Rabi / Winter','Summer'])}${select('water','Water availability',['Low','Medium','High'])}${field('area','Farm area (acres)','number',2,'min="0.01" step="0.01"')}${field('budget','Cultivation budget (₹)','number',30000,'min="0"')}</div><button class="button" onclick="recommend()">Check suitable crops</button><div id="cropResult"></div>`)} `,
+ weather:()=>`${card('Weather forecast & microclimate',`<p>Enter a farm location to prepare the forecast lookup. Weather API connection is pending in this standalone prototype.</p><div class="form">${field('place','Farm location','text','Tiruchengode, Tamil Nadu')}${select('forecast','Forecast window',['Today','Next 3 days','Next 7 days'])}</div><button class="button" onclick="weatherCheck()">View forecast status</button><div id="weatherResult"></div>`)}<div class="grid">${[['Temperature','— °C'],['Humidity','— %'],['Rainfall probability','— %']].map(([a,b])=>card(a,`<div class="metric">${b}</div><div class="muted">Waiting for live API</div>`)).join('')}</div>${card('Drone weather integration',`<p>Real drone/ESP32 temperature, humidity and pressure readings can be displayed after connecting the sensor feed. Ground observations and API forecasts must be validated before producing risk predictions.</p><button class="button secondary" onclick="go('drone')">Open drone monitoring →</button>`)}`,
+ disease:()=>`${card('Crop disease detection',`<p>Upload a leaf photograph to preview the disease-detection workflow.</p><div class="upload"><input type="file" id="leaf" accept="image/*" onchange="previewLeaf(event)"><div id="leafPreview" class="note" style="margin-top:12px">No image selected</div></div><div id="diseaseResult">${warn('Disease classification requires a trained, validated image model. No diagnosis will be fabricated from the uploaded photo.')}</div><button class="button" onclick="diseaseCheck()">Check detection status</button>`)} `,
+ market:()=>`${card('Market price comparison',`<p>Fetch daily wholesale prices reported by Indian mandis through the Government of India data.gov.in AGMARKNET dataset.</p><div class="form">${field('marketState','State','text','Tamil Nadu')}${field('marketDistrict','District','text','Coimbatore')}${select('commodity','Commodity',['Tomato','Paddy','Onion','Groundnut','Maize','Cotton','Banana','Coconut','Turmeric','Chilli'])}${field('transport','Estimated transport cost (₹ per quintal)','number',120,'min="0"')}</div><button class="button" onclick="compareLiveMarket()">Fetch live mandi prices</button><div id="marketResult"></div><p class="note">Prices are daily reported wholesale rates, not guaranteed farm-gate offers. Verify grade, arrival date and buyer terms before selling.</p>${warn('Live data requires a free data.gov.in API key configured by the site administrator in Render. If unavailable, the app shows an error instead of invented sample prices.')}`)}`,
+ profit:()=>`${card('Cultivation cost & profit calculator',`<div class="form">${field('seed','Seeds (₹)','number',2000)}${field('fert','Fertilizers (₹)','number',4500)}${field('labour','Labour (₹)','number',9000)}${field('irrigation','Irrigation (₹)','number',2500)}${field('other','Other expenses (₹)','number',2000)}${field('yield','Expected yield (kg)','number',1800)}${field('price','Selling price (₹/kg)','number',24)}${field('transportCost','Transport & marketing (₹)','number',1500)}</div><button class="button" onclick="calculate()">Calculate farm economics</button><div id="profitResult"></div>`)} `,
+ translate:()=>`${card('AI Multilingual Translation & Communication',`<p>Designed for farmer–buyer communication. This standalone build includes the interface; translation needs an AI service/backend connection.</p><div class="form">${select('fromLang','From language',['Tamil','English','Hindi','Telugu','Kannada','Malayalam'])}${select('toLang','To language',['English','Tamil','Hindi','Telugu','Kannada','Malayalam'])}</div><div class="field"><label for="message">Message</label><textarea id="message" placeholder="Type a farming or market message..."></textarea></div><button class="button" onclick="translationCheck()">Translate message</button><div id="translationResult"></div>${warn('No translation service is connected yet. Text will not be falsely presented as AI-translated.')}`)}`,
+ irrigation:()=>`${card('Drone & Weather-Based Smart Irrigation',`<p>Combines local weather forecast, crop stage, field area and soil-moisture reading to estimate irrigation need. Use drone weather-sensor readings when available; a drone camera alone cannot measure soil moisture.</p>
+<div class="warning"><b>Safety:</b> This module provides an irrigation recommendation only. It does not switch a real pump or valve. Physical control requires a tested ESP32/relay/valve installation, electrical protection and farmer confirmation.</div>
+<div class="form">
+${field('irrLat','Farm latitude','number','11.38','step="any" min="-90" max="90"')}
+${field('irrLon','Farm longitude','number','77.89','step="any" min="-180" max="180"')}
+${field('irrArea','Farm area (acres)','number','1','min="0.01" step="0.01"')}
+${select('irrCrop','Crop',['Paddy','Maize','Groundnut','Millets','Cotton','Tomato','Banana','Coconut','Other'])}
+${select('irrStage','Crop growth stage',['Initial / establishment','Vegetative','Flowering / reproductive','Maturity'])}
+${field('irrMoisture','Soil moisture (%)','number','30','min="0" max="100" step="0.1"')}
+${field('irrTemp','Drone sensor temperature (°C) — optional','number','','step="0.1" placeholder="Enter BME280 reading if available"')}
+${field('irrHumidity','Drone sensor humidity (%) — optional','number','','min="0" max="100" step="0.1" placeholder="Enter sensor reading if available"')}
+${field('irrFlow','Pump flow rate (litres/min) — optional','number','','min="0.1" step="0.1" placeholder="For estimated run time"')}
+</div>
+<div class="flex" style="margin-top:12px"><button class="button secondary" onclick="getIrrigationGPS()">◎ Use farm GPS</button><button class="button" onclick="getIrrigationWeather()">Get weather & calculate need</button></div>
+<div id="irrWeatherStatus" class="note" style="margin-top:12px">Weather forecast not loaded yet. Allow location access or enter farm coordinates.</div><div id="irrResult" style="margin-top:14px"></div>
+<div class="note" style="margin-top:12px">Weather source: Open-Meteo forecast (ET₀ and rainfall). Estimate is advisory; confirm with field observation, soil type, irrigation method and local agronomist.</div>`)} ,
+ drone:()=>`${card('Drone mission simulation',`<div class="flex"><span class="mode">● SIMULATION MODE</span><span class="pill" id="flightState">Idle</span></div><p>Plan and simulate field monitoring. Controls below do not operate real drone hardware.</p><div class="map" id="farmMap"><span class="drone" id="droneMarker">🚁</span><span class="point" style="left:20%;top:20%"></span><span class="point" style="left:75%;top:20%"></span><span class="point" style="left:75%;top:75%"></span><span class="point" style="left:20%;top:75%"></span></div><div class="flex" style="margin-top:15px"><button class="button" onclick="startFlight()">▶ Start simulation</button><button class="button secondary" onclick="stopFlight()">■ Stop simulation</button><button class="button secondary" onclick="resetFlight()">↺ Reset</button></div><div class="result" id="flightResult">Ready to simulate a monitoring mission.</div>`)}<div class="grid">${[['Battery','100%'],['Altitude','SIM: 8 m'],['GPS','SIMULATED']].map(([a,b])=>card(a,`<div class="metric" style="font-size:22px">${b}</div>`)).join('')}</div><div class="two">${card('Microclimate telemetry',`<p>Sample values update during simulation. Actual ESP32 readings can be imported as CSV below.</p><div class="grid" style="grid-template-columns:1fr 1fr"><div class="mini">🌡️ Temperature<div class="metric" id="temp">29.0°C</div></div><div class="mini">💧 Humidity<div class="metric" id="humid">72%</div></div><div class="mini">🧭 Pressure<div class="metric" id="pressure">1009 hPa</div></div><div class="mini">📍 Location<div class="metric" style="font-size:14px" id="coords">SIM 11.38, 77.89</div></div></div><button class="button secondary" onclick="downloadTelemetry()">Export simulated CSV</button>`)}${card('ESP32 sensor prototype',`<p><b>Hardware:</b> ESP32 + BME280 + NEO-6M GPS + regulated power supply.</p><p><b>Low-cost approach:</b> First validate a stationary sensor prototype; later mount it on a compatible drone.</p><div class="field"><label>Import sensor CSV (timestamp,temp_c,humidity_pct,pressure_hpa,lat,lon)</label><input type="file" id="sensorCsv" accept=".csv,text/csv" onchange="importSensor(event)"></div><div id="importResult" class="note">No real sensor readings loaded.</div>${warn('Actual flight control is disabled. A safe hardware adapter, telemetry link, operator oversight and flight safety checks are required.')}`)}${card('Drone photo & video auto-upload',`<p>After a drone mission, transfer captured media over Wi-Fi or from the drone SD card. This prototype lets you select media files and automatically adds them to the mission gallery.</p><div class="upload" id="droneDrop"><div style="font-size:30px">📷 🎥</div><b>Automatic media import</b><p class="note">Choose multiple drone photos/videos. They will appear in the gallery with upload status.</p><input type="file" id="droneMediaInput" accept="image/*,video/*" multiple onchange="handleDroneMedia(event)"></div><div class="flex" style="justify-content:space-between;margin-top:15px"><b>Mission media gallery</b><span class="pill" id="mediaCount">0 files</span></div><div id="droneMediaGallery" class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:12px"><div class="mini note" style="grid-column:1/-1">No drone media uploaded yet.</div></div><div class="note" id="mediaUploadStatus" style="margin-top:10px">Waiting for media files.</div>${warn('Prototype note: this demonstrates file import and gallery preview in your browser. Automatic transfer directly from a flying drone needs a Wi-Fi/telemetry link, compatible camera or onboard computer, cloud storage and backend integration.')}`)}</div>`
+};
+function go(id){stopFlight();current=id;document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.id===id));$('heading').textContent=sections.find(s=>s[0]===id)[2];$('content').innerHTML=templates[id]();if(id==='farm'){setTimeout(initFarmMap,120);renderSavedFarms();}if(id==='distribution'){loadProduceListings();}if(id==='harvestloss'){loadHarvestLosses();}window.scrollTo({top:0,behavior:'smooth'});}
+$('nav').innerHTML=sections.map(s=>`<button class="nav" data-id="${s[0]}" onclick="go('${s[0]}')"><span>${s[1]}</span>${s[2]}</button>`).join('');
+function recommend(){let soil=$('soil').value,water=$('water').value,season=$('season').value,area=+$('area').value,budget=+$('budget').value;if(area<=0||budget<0){$('cropResult').innerHTML=warn('Enter valid area and budget.');return}let rules=[{name:'Millets',soil:['Sandy','Red','Loamy'],water:['Low','Medium'],season:['Kharif / Monsoon','Summer']},{name:'Paddy',soil:['Clay','Loamy'],water:['High'],season:['Kharif / Monsoon']},{name:'Groundnut',soil:['Sandy','Red','Loamy'],water:['Low','Medium'],season:['Kharif / Monsoon','Summer']},{name:'Wheat',soil:['Loamy','Clay'],water:['Medium','High'],season:['Rabi / Winter']},{name:'Cotton',soil:['Black','Loamy'],water:['Medium','High'],season:['Kharif / Monsoon']},{name:'Pulses',soil:['Red','Loamy','Black'],water:['Low','Medium'],season:['Rabi / Winter','Kharif / Monsoon']}];let sorted=rules.map(c=>({...c,score:(c.soil.includes(soil)?2:0)+(c.water.includes(water)?2:0)+(c.season.includes(season)?2:0)})).sort((a,b)=>b.score-a.score).slice(0,3);$('cropResult').innerHTML=`<div class="result"><b>Rule-based shortlist (not AI predictions)</b><br>${sorted.map((c,i)=>`${i+1}. ${c.name} — ${c.score}/6 matching criteria`).join('<br>')}<br><br>Farm: ${area} acre(s); budget: ₹${fmt(budget)}.<br>Consult local agronomy advice, soil testing and irrigation availability before planting.</div>`}
+function weatherCheck(){$('weatherResult').innerHTML=`<div class="result">Forecast request prepared for: ${escapeHtml($('place').value)} (${escapeHtml($('forecast').value)}).<br>Live weather API is not configured in this offline prototype. No forecast values have been invented.</div>`}
+function previewLeaf(e){let f=e.target.files[0];if(!f)return;if(!f.type.startsWith('image/'))return;$('leafPreview').innerHTML='';let img=document.createElement('img');img.src=URL.createObjectURL(f);img.style='max-width:100%;max-height:230px;border-radius:12px';img.onload=()=>URL.revokeObjectURL(img.src);$('leafPreview').append(img);selectedImage=f.name;}
+function diseaseCheck(){$('diseaseResult').innerHTML=`<div class="result">${selectedImage?'Image received: '+escapeHtml(selectedImage)+'. ':'Please upload an image. '}A validated crop disease model has not been connected. No disease classification available yet.</div>`}
+async function compareLiveMarket(){
+  const result=$('marketResult');
+  const state=$('marketState').value.trim(), district=$('marketDistrict').value.trim();
+  const commodity=$('commodity').value, transport=Number($('transport').value);
+  if(!state||!district||!commodity||!Number.isFinite(transport)||transport<0){result.innerHTML=warn('Enter a valid state, district, commodity and non-negative transport cost.');return;}
+  result.innerHTML='<p class="note">Fetching official mandi records…</p>';
+  try{
+    const qs=new URLSearchParams({state,district,commodity,limit:'100'});
+    const response=await fetch('/api/market-prices?'+qs.toString());
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.detail||'Could not fetch mandi prices');
+    if(!data.records||!data.records.length){result.innerHTML=warn('No reported records found for this district and commodity. Try another district or commodity.');return;}
+    const rows=data.records.map(r=>`<tr><td>${escapeHtml(r.market||'—')}</td><td>${escapeHtml(r.variety||'—')} / ${escapeHtml(r.grade||'Grade not reported')}</td><td>${escapeHtml(r.arrival_date||'Date not reported')}</td><td>₹${fmt(r.min_price)}</td><td>₹${fmt(r.max_price)}</td><td><b>₹${fmt(r.modal_price)}</b></td><td>₹${fmt(Math.max(0,r.modal_price-transport))}</td></tr>`).join('');
+    result.innerHTML=`<div class="result"><b>${data.count} official mandi record(s) found</b><div class="note">Source: ${escapeHtml(data.source)} • Retrieved: ${new Date(data.fetched_at).toLocaleString()}</div></div><div style="overflow-x:auto"><table class="table"><tr><th>Market</th><th>Variety / Grade</th><th>Arrival date</th><th>Min ₹/q</th><th>Max ₹/q</th><th>Modal ₹/q</th><th>Estimated net ₹/q</th></tr>${rows}</table></div><p class="note">Estimated net = modal wholesale price − your entered transport cost. This is not a confirmed buyer offer. Government records are daily and may be delayed.</p>`;
+  }catch(e){result.innerHTML=warn(escapeHtml(e.message));}
+}
+function calculate(){let keys=['seed','fert','labour','irrigation','other','yield','price','transportCost'],v=keys.map(k=>+$((k)).value);if(v.some(x=>!Number.isFinite(x)||x<0)){$('profitResult').innerHTML=warn('Please enter non-negative values.');return}let cost=v[0]+v[1]+v[2]+v[3]+v[4]+v[7],revenue=v[5]*v[6],profit=revenue-cost;$('profitResult').innerHTML=`<div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="mini">Total cost<div class="metric" style="font-size:22px">₹${fmt(cost)}</div></div><div class="mini">Revenue<div class="metric" style="font-size:22px">₹${fmt(revenue)}</div></div><div class="mini">${profit>=0?'Profit':'Loss'}<div class="metric" style="font-size:22px">₹${fmt(Math.abs(profit))}</div></div></div><p>Break-even selling price: ${v[5]>0?'₹'+fmt(cost/v[5])+'/kg':'Undefined (yield is zero)'}. Estimates depend on actual yield, grade and prices.</p>`}
+function translationCheck(){let msg=$('message').value.trim();$('translationResult').innerHTML=msg?`<div class="result">Source text received (${escapeHtml($('fromLang').value)} → ${escapeHtml($('toLang').value)}).<br>AI translation provider not connected. Translation unavailable in offline prototype.</div>`:warn('Enter a message to translate.');}
+function tick(){droneX+=9;if(droneX>78){droneX=20;droneY+=16;if(droneY>75)droneY=20}let d=$('droneMarker');if(!d)return;d.style.setProperty('--x',droneX+'%');d.style.setProperty('--y',droneY+'%');let t=(28+Math.sin(droneX/20)*1.8).toFixed(1),h=Math.round(70+Math.cos(droneY/15)*8),p=(1008+Math.sin(droneY/20)*2).toFixed(1);$('temp').textContent=t+'°C';$('humid').textContent=h+'%';$('pressure').textContent=p+' hPa';$('coords').textContent=`SIM ${(11.38+droneY/10000).toFixed(4)}, ${(77.89+droneX/10000).toFixed(4)}`;telemetry.push([new Date().toISOString(),t,h,p,(11.38+droneY/10000).toFixed(5),(77.89+droneX/10000).toFixed(5),'simulated']);$('flightResult').textContent='Simulated monitoring mission running. Readings are synthetic and not connected to hardware.'}
+function startFlight(){if(flight)return;flight=true;telemetry=[];$('flightState').textContent='Simulation running';tick();flightTimer=setInterval(tick,900)}function stopFlight(){if(flightTimer)clearInterval(flightTimer);flightTimer=null;flight=false;if($('flightState'))$('flightState').textContent='Stopped'}function resetFlight(){stopFlight();droneX=25;droneY=35;telemetry=[];if($('droneMarker')){$('droneMarker').style.setProperty('--x','25%');$('droneMarker').style.setProperty('--y','35%');$('flightResult').textContent='Simulation reset.'}}function downloadTelemetry(){if(!telemetry.length){$('flightResult').textContent='Start the simulation to generate sample readings.';return}let csv='timestamp,temp_c,humidity_pct,pressure_hpa,lat,lon,source\n'+telemetry.map(r=>r.join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='agrimitra_simulated_telemetry.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function importSensor(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{let lines=String(reader.result).trim().split(/\r?\n/),header=lines[0].trim().toLowerCase();if(header!=='timestamp,temp_c,humidity_pct,pressure_hpa,lat,lon'){$('importResult').textContent='Invalid header. Required: timestamp,temp_c,humidity_pct,pressure_hpa,lat,lon';return}let last=lines.at(-1).split(',');if(last.length!==6||last.slice(1).some(v=>!Number.isFinite(+v))){$('importResult').textContent='Invalid numeric data in final row.';return}$('importResult').textContent=`Imported ${lines.length-1} row(s). Latest recorded observation: ${last[1]}°C, ${last[2]}% humidity, ${last[3]} hPa. This is imported file data, not a live drone connection.`;$('temp').textContent=last[1]+'°C';$('humid').textContent=last[2]+'%';$('pressure').textContent=last[3]+' hPa';$('coords').textContent=last[4]+', '+last[5]};reader.readAsText(f)}
+go('dashboard');
+
+
+
+
+let latestHarvestLoss=null;
+function calculateHarvestLoss(){
+  const expected=Number($('hlExpected').value),actual=Number($('hlActual').value),price=Number($('hlPrice').value),area=Number($('hlArea').value);
+  if(expected<=0||actual<0||price<0||area<=0||!$('hlCrop').value.trim()){
+    $('hlResult').innerHTML=warn('Enter a crop name, positive area and valid yield and price values.');return;
+  }
+  const lossKg=Math.max(0,expected-actual),lossPct=expected>0?(lossKg/expected)*100:0,value=lossKg*price;
+  latestHarvestLoss={crop:$('hlCrop').value.trim(),area_acres:area,expected_yield_kg:expected,actual_yield_kg:actual,loss_kg:lossKg,loss_percent:lossPct,price_per_kg:price,estimated_value_inr:value,method:$('hlMethod').value,harvest_date:$('hlDate').value};
+  $('hlResult').innerHTML=`<div class="result"><div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:10px"><div><div class="note">Estimated yield gap</div><div class="metric">${lossKg.toFixed(1)} kg</div></div><div><div class="note">Yield gap</div><div class="metric">${lossPct.toFixed(1)}%</div></div><div><div class="note">Estimated value</div><div class="metric">₹${value.toFixed(0)}</div></div></div><p class="note">This is an estimate based on expected vs collected yield, not a direct measurement of field harvesting loss.</p></div>`;
+}
+async function saveHarvestLoss(){
+  if(!latestHarvestLoss){calculateHarvestLoss();if(!latestHarvestLoss)return;}
+  try{
+    const r=await fetch('/api/harvest-loss',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(latestHarvestLoss)});
+    if(!r.ok)throw new Error((await r.json()).detail||'Save failed');
+    $('hlResult').insertAdjacentHTML('beforeend','<p class="note">✓ Observation saved to AgriMitra server.</p>');
+    loadHarvestLosses();
+  }catch(e){$('hlResult').insertAdjacentHTML('beforeend',`<p class="note">Could not save to backend: ${escapeHtml(e.message)}. Start the server and try again.</p>`);}
+}
+async function loadHarvestLosses(){
+  const el=$('harvestLossHistory');if(!el)return;
+  try{
+    const r=await fetch('/api/harvest-loss');if(!r.ok)throw new Error();
+    const items=await r.json();
+    el.innerHTML=items.length?items.map(x=>`<div class="mini" style="margin:9px 0"><b>${escapeHtml(x.crop)}</b><div class="note">${escapeHtml(x.harvest_date||'Date not entered')} • ${escapeHtml(x.method||'Method not specified')}</div><div class="metric" style="font-size:21px">${Number(x.loss_kg).toFixed(1)} kg <span class="muted">estimated gap</span></div><div class="note">${Number(x.loss_percent).toFixed(1)}% • Approx. ₹${Number(x.estimated_value_inr).toFixed(0)}</div></div>`).join(''):'<p class="note">No harvesting observations saved yet.</p>';
+  }catch(e){el.innerHTML='<p class="note">Backend unavailable. Start the AgriMitra server to load saved observations.</p>';}
+}
+
+async function publishProduce(){
+  const payload={
+    farmer_name:$('distFarmer').value.trim(),location:$('distVillage').value.trim(),
+    crop:$('distCrop').value.trim(),quantity_kg:Number($('distQuantity').value),
+    price_per_kg:Number($('distPrice').value),quality:$('distQuality').value,
+    buyer_type:$('distBuyerType').value,contact_phone:$('distPhone').value.trim(),
+    notes:$('distNotes').value.trim()
+  };
+  if(!payload.farmer_name||!payload.crop||!payload.location||!payload.contact_phone||payload.quantity_kg<=0||payload.price_per_kg<=0){
+    $('distStatus').innerHTML=warn('Please complete farmer, location, crop, quantity, price and contact details.');return;
+  }
+  $('distStatus').textContent='Publishing listing…';
+  try{
+    const r=await fetch('/api/produce',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!r.ok)throw new Error((await r.json()).detail||'Could not publish listing');
+    $('distStatus').innerHTML='<div class="result">✓ Your produce listing has been published.</div>';
+    loadProduceListings();
+  }catch(e){$('distStatus').innerHTML=warn('Could not publish: '+escapeHtml(e.message)+'. Make sure the AgriMitra backend is running.');}
+}
+async function loadProduceListings(){
+  const el=$('distributionListings');if(!el)return;
+  el.innerHTML='<p class="note">Loading listings…</p>';
+  try{
+    const r=await fetch('/api/produce');if(!r.ok)throw new Error('Could not load listings');
+    const items=await r.json();
+    if(!items.length){el.innerHTML='<p class="note">No produce listings yet. Be the first farmer to publish a listing.</p>';return;}
+    el.innerHTML=items.map(x=>`<div class="mini" style="margin:10px 0"><div class="flex" style="justify-content:space-between;gap:8px"><b>${escapeHtml(x.crop)}</b><span class="pill">${escapeHtml(x.quality||'Standard')}</span></div><div class="note">${escapeHtml(x.farmer_name)} • ${escapeHtml(x.location)}</div><div class="metric" style="font-size:22px">₹${Number(x.price_per_kg).toFixed(2)} <span class="muted">/ kg</span></div><div class="note">${fmt(x.quantity_kg)} kg available • Buyer: ${escapeHtml(x.buyer_type)}</div><p>${escapeHtml(x.notes||'')}</p><a href="tel:${encodeURIComponent(x.contact_phone)}" class="button secondary" style="display:inline-block;text-decoration:none">Contact farmer: ${escapeHtml(x.contact_phone)}</a></div>`).join('');
+  }catch(e){el.innerHTML='<p class="note">Backend unavailable. Start the FastAPI server to browse produce.</p>';}
+}
+
+let farmMap=null,farmBoundaryPoints=[],farmBoundaryLayer=null,farmPointLayers=[],farmCalculatedArea=0;
+function initFarmMap(){
+  const el=$('farmMapCanvas'); if(!el||!window.L)return;
+  if(farmMap){farmMap.remove();farmMap=null;}
+  farmMap=L.map(el).setView([11.0168,76.9558],13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(farmMap);
+  farmMap.on('click',e=>addFarmPoint(e.latlng.lat,e.latlng.lng));
+  setTimeout(()=>farmMap.invalidateSize(),150);
+  refreshFarmBoundaryUI();
+}
+function addFarmPoint(lat,lng){
+  if(!farmMap)return;
+  farmBoundaryPoints.push([lat,lng]);
+  const marker=L.circleMarker([lat,lng],{radius:6,color:'#514fe8',fillColor:'#7778ff',fillOpacity:1,weight:2}).addTo(farmMap);
+  farmPointLayers.push(marker);
+  redrawFarmPolygon();
+}
+function redrawFarmPolygon(){
+  if(farmBoundaryLayer){farmMap.removeLayer(farmBoundaryLayer);farmBoundaryLayer=null;}
+  if(farmBoundaryPoints.length>=2){
+    farmBoundaryLayer=L.polygon(farmBoundaryPoints,{color:'#5555df',weight:3,fillColor:'#7778ff',fillOpacity:.18}).addTo(farmMap);
+  }
+  refreshFarmBoundaryUI();
+}
+function undoFarmPoint(){
+  if(!farmBoundaryPoints.length)return;
+  farmBoundaryPoints.pop();
+  const marker=farmPointLayers.pop();if(marker&&farmMap)farmMap.removeLayer(marker);
+  redrawFarmPolygon();
+}
+function clearFarmBoundary(){
+  farmBoundaryPoints=[];farmPointLayers.forEach(m=>farmMap&&farmMap.removeLayer(m));farmPointLayers=[];
+  if(farmBoundaryLayer&&farmMap)farmMap.removeLayer(farmBoundaryLayer);farmBoundaryLayer=null;
+  farmCalculatedArea=0;refreshFarmBoundaryUI();
+}
+function finishFarmBoundary(){
+  if(farmBoundaryPoints.length<3){$('farmSaveStatus').innerHTML=warn('Please mark at least 3 boundary points on the map.');return;}
+  redrawFarmPolygon();
+  farmCalculatedArea=calculateFarmArea(farmBoundaryPoints);
+  const bounds=L.latLngBounds(farmBoundaryPoints.map(p=>L.latLng(p[0],p[1])));
+  farmMap.fitBounds(bounds.pad(.2));
+  refreshFarmBoundaryUI();
+  $('farmSaveStatus').innerHTML='<div class="result">✓ Farm boundary completed. Review the calculated area before saving.</div>';
+}
+function calculateFarmArea(points){
+  const R=6378137,rad=Math.PI/180;
+  let sum=0;
+  for(let i=0;i<points.length;i++){
+    const p1=points[i],p2=points[(i+1)%points.length];
+    sum+=(p2[1]-p1[1])*rad*(2+Math.sin(p1[0]*rad)+Math.sin(p2[0]*rad));
+  }
+  return Math.abs(sum*R*R/2);
+}
+function refreshFarmBoundaryUI(){
+  const count=$('farmPointCount');if(!count)return;
+  count.textContent=farmBoundaryPoints.length;
+  const area=farmBoundaryPoints.length>=3?calculateFarmArea(farmBoundaryPoints):0;
+  farmCalculatedArea=area;
+  $('farmAreaAcres').textContent=area?(area/4046.8564224).toFixed(3):'—';
+  $('farmAreaHectares').textContent=area?(area/10000).toFixed(3):'—';
+}
+function locateFarm(){
+  if(!navigator.geolocation){$('farmSaveStatus').innerHTML=warn('GPS is not supported by this browser.');return;}
+  $('farmSaveStatus').textContent='Getting your location…';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude,lng=pos.coords.longitude;
+    if(!farmMap)initFarmMap();
+    farmMap.setView([lat,lng],18);
+    L.marker([lat,lng]).addTo(farmMap).bindPopup('Your current GPS location').openPopup();
+    $('farmSaveStatus').innerHTML='<div class="result">GPS location found. Now tap the farm boundary corners on the map.</div>';
+  },err=>{$('farmSaveStatus').innerHTML=warn('Could not get GPS location. Allow location permission and use HTTPS, or move the map manually.');},{enableHighAccuracy:true,timeout:12000});
+}
+
+async function saveFarm(){
+  const name=$('farmName').value.trim(),farmer=$('farmerName').value.trim();
+  if(!name||!farmer){$('farmSaveStatus').innerHTML=warn('Please enter farm name and farmer name.');return;}
+  if(farmBoundaryPoints.length<3){$('farmSaveStatus').innerHTML=warn('Please draw and finish a farm boundary with at least 3 points.');return;}
+  const area=calculateFarmArea(farmBoundaryPoints),acres=area/4046.8564224;
+  if(!acres||!isFinite(acres)){$('farmSaveStatus').innerHTML=warn('Unable to calculate the farm area. Please redraw the boundary.');return;}
+  const farm={name,farmer_name:farmer,village:$('farmVillage').value.trim(),district:$('farmDistrict').value.trim(),soil_type:$('farmSoil').value,water_source:$('farmWater').value,crop:$('farmCrop').value,area_sq_m:area,area_acres:acres,area_hectares:acres*.40468564224,boundary:farmBoundaryPoints.map(p=>({lat:p[0],lng:p[1]})),notes:$('farmNotes').value.trim()};
+  $('farmSaveStatus').textContent='Saving farm to AgriMitra server…';
+  try{
+    const response=await fetch('/api/farms',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(farm)});
+    if(!response.ok)throw new Error((await response.json()).detail||'Server could not save the farm.');
+    const saved=await response.json();
+    $('farmSaveStatus').innerHTML='<div class="result">✓ Farm saved to the AgriMitra backend database. Farm ID: '+saved.id+'</div>';
+    renderSavedFarms();
+  }catch(err){
+    $('farmSaveStatus').innerHTML=warn('Backend save failed: '+escapeHtml(err.message)+'. Start the FastAPI server and open the site through http://127.0.0.1:8000.');
+  }
+}
+
+
+async function renderSavedFarms(){
+  const el=$('savedFarmList');if(!el)return;
+  el.innerHTML='<p class="note">Loading farms from server…</p>';
+  try{
+    const response=await fetch('/api/farms');
+    if(!response.ok)throw new Error('Could not load farms');
+    const farms=await response.json();
+    if(!farms.length){el.innerHTML='<p class="note">No farms saved yet. Register your first farm using the map.</p>';return;}
+    el.innerHTML=farms.map(f=>`<div class="mini" style="margin:9px 0"><b>${escapeHtml(f.name)}</b><div class="note">${escapeHtml(f.village||'')} ${escapeHtml(f.district||'')}</div><div class="metric" style="font-size:22px">${Number(f.area_acres).toFixed(3)} acres</div><div class="note">${Number(f.area_hectares).toFixed(3)} hectares • ${escapeHtml(f.crop||'Crop not selected')}</div><button class="button secondary" style="margin-top:8px" onclick="viewSavedFarm(${Number(f.id)})">View boundary</button></div>`).join('');
+    window._agrimitraFarms=farms;
+  }catch(err){el.innerHTML='<p class="note">Backend unavailable. Start the FastAPI server to load saved farms.</p>';}
+}
+
+
+function viewSavedFarm(id){
+  const f=(window._agrimitraFarms||[]).find(x=>x.id===id);if(!f)return;
+  farmBoundaryPoints=(f.boundary||[]).map(p=>[p.lat,p.lng]);farmPointLayers=[];farmBoundaryLayer=null;
+  if(farmMap){clearFarmBoundary();farmBoundaryPoints=(f.boundary||[]).map(p=>[p.lat,p.lng]);farmBoundaryPoints.forEach(p=>{farmPointLayers.push(L.circleMarker(p,{radius:6,color:'#514fe8',fillColor:'#7778ff',fillOpacity:1,weight:2}).addTo(farmMap));});redrawFarmPolygon();if(farmBoundaryPoints.length>=3)farmMap.fitBounds(L.latLngBounds(farmBoundaryPoints.map(p=>L.latLng(p[0],p[1]))).pad(.2));}
+}
+
+
+async function handleDroneMedia(e){
+  const files=Array.from(e.target.files||[]);
+  if(!files.length)return;
+  const gallery=$('droneMediaGallery'),status=$('mediaUploadStatus');
+  if(!gallery||!status)return;
+  status.textContent='Uploading '+files.length+' file(s) to AgriMitra server…';
+  let uploaded=0,failed=0;
+  for(const file of files){
+    if(!file.type.startsWith('image/')&&!file.type.startsWith('video/'))continue;
+    const form=new FormData();form.append('file',file);
+    try{
+      const response=await fetch('/api/media/upload',{method:'POST',body:form});
+      if(!response.ok)throw new Error('Upload failed');
+      const saved=await response.json();
+      const url=URL.createObjectURL(file);
+      droneMedia.unshift({name:saved.original_name,type:file.type,size:file.size,url,uploadedAt:new Date(saved.created_at),serverUrl:saved.url});
+      uploaded++;
+    }catch(err){failed++;}
+  }
+  $('mediaCount').textContent=droneMedia.length+' files';
+  gallery.innerHTML=droneMedia.map(m=>{
+    const preview=m.type.startsWith('video/')
+      ? `<video src="${m.url}" controls style="width:100%;height:130px;object-fit:cover;border-radius:10px;background:#111"></video>`
+      : `<img src="${m.url}" alt="Drone capture" style="width:100%;height:130px;object-fit:cover;border-radius:10px">`;
+    const size=m.size<1048576?(m.size/1024).toFixed(0)+' KB':(m.size/1048576).toFixed(1)+' MB';
+    return `<div class="mini" style="padding:10px;min-width:0">${preview}<div style="font-size:11px;font-weight:750;margin-top:8px;overflow-wrap:anywhere">${escapeHtml(m.name)}</div><div class="note">${size} • ${m.uploadedAt.toLocaleString()}</div><div style="font-size:10px;color:#25865c;font-weight:800;margin-top:6px">✓ UPLOADED TO SERVER</div></div>`;
+  }).join('')||'<div class="mini note" style="grid-column:1/-1">No media uploaded yet.</div>';
+  status.textContent=uploaded+' file(s) uploaded to server'+(failed?'; '+failed+' upload(s) failed.':' .');
+  e.target.value='';
+}
+
+
+
+// Weather-driven irrigation recommendation. No real pump actuation is performed here.
+function getIrrigationGPS(){
+  const status=$('irrWeatherStatus');
+  if(!navigator.geolocation){status.textContent='GPS is not supported by this browser. Enter coordinates manually.';return;}
+  status.textContent='Requesting farm location permission…';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    $('irrLat').value=pos.coords.latitude.toFixed(6);$('irrLon').value=pos.coords.longitude.toFixed(6);
+    status.textContent='Farm coordinates captured. Click “Get weather & calculate need”.';
+  },err=>{status.textContent='Could not access GPS. Enter latitude and longitude manually.';},{enableHighAccuracy:true,timeout:12000});
+}
+async function getIrrigationWeather(){
+  const status=$('irrWeatherStatus'),result=$('irrResult');
+  const lat=Number($('irrLat').value),lon=Number($('irrLon').value),area=Number($('irrArea').value),moist=Number($('irrMoisture').value);
+  if(!Number.isFinite(lat)||lat < -90||lat>90||!Number.isFinite(lon)||lon < -180||lon>180){result.innerHTML=warn('Enter valid latitude and longitude, or use farm GPS.');return;}
+  if(!(area>0)||!Number.isFinite(moist)||moist<0||moist>100){result.innerHTML=warn('Enter valid farm area and soil moisture (0–100%).');return;}
+  status.textContent='Fetching forecast from Open-Meteo…';result.innerHTML='';
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,precipitation_sum,et0_fao_evapotranspiration&forecast_days=2&timezone=auto`;
+    const res=await fetch(url);if(!res.ok)throw new Error('Weather service returned '+res.status);
+    const w=await res.json();const d=w.daily;if(!d||!d.time||!d.et0_fao_evapotranspiration)throw new Error('Forecast does not include ET₀ data for this location.');
+    const et0=Math.max(0,Number(d.et0_fao_evapotranspiration[0])||0);
+    const rain=Math.max(0,Number(d.precipitation_sum?.[0])||0);
+    const tmax=Number(d.temperature_2m_max?.[0]);
+    const kcMap={Paddy:{'Initial / establishment':1.05,'Vegetative':1.15,'Flowering / reproductive':1.2,'Maturity':0.9},Maize:{'Initial / establishment':0.3,'Vegetative':0.8,'Flowering / reproductive':1.15,'Maturity':0.6},Groundnut:{'Initial / establishment':0.4,'Vegetative':0.75,'Flowering / reproductive':1.0,'Maturity':0.7},Millets:{'Initial / establishment':0.3,'Vegetative':0.75,'Flowering / reproductive':1.0,'Maturity':0.6},Cotton:{'Initial / establishment':0.35,'Vegetative':0.8,'Flowering / reproductive':1.15,'Maturity':0.7},Tomato:{'Initial / establishment':0.6,'Vegetative':1.0,'Flowering / reproductive':1.15,'Maturity':0.8},Banana:{'Initial / establishment':0.5,'Vegetative':1.0,'Flowering / reproductive':1.1,'Maturity':1.0},Coconut:{'Initial / establishment':0.7,'Vegetative':0.9,'Flowering / reproductive':1.0,'Maturity':0.9},Other:{'Initial / establishment':0.6,'Vegetative':0.9,'Flowering / reproductive':1.0,'Maturity':0.8}};
+    const crop=$('irrCrop').value,stage=$('irrStage').value,kc=kcMap[crop][stage];
+    // Simple advisory estimate: ETc = ET0 × Kc; assume 80% of forecast rain is effective.
+    let etc=et0*kc,effectiveRain=rain*0.8,netMm=Math.max(0,etc-effectiveRain);
+    // Soil-moisture guardrail: avoid recommending irrigation when the entered reading is already comfortably moist.
+    let moistureFactor=moist>=65?0:moist>=45?0.45:moist>=30?0.8:1;
+    netMm*=moistureFactor;
+    // Hot weather raises urgency, but does not alone override moisture/rain checks.
+    const litres=netMm*area*4046.8564224;
+    const flow=Number($('irrFlow').value);const minutes=flow>0?litres/flow:null;
+    const droneTemp=$('irrTemp').value.trim(),droneHum=$('irrHumidity').value.trim();
+    let decision=netMm<0.5?'No irrigation indicated from this estimate':moist>=65?'Soil appears sufficiently moist; postpone and recheck':rain>=8?'Rainfall forecast is substantial; postpone and reassess':tmax>=35?'Irrigation may be needed soon; use a cooler time (early morning/evening)':'Irrigation may be needed based on estimated crop water use';
+    let badge=netMm<0.5?'success':'warning';
+    status.textContent=`Forecast loaded for ${lat.toFixed(4)}, ${lon.toFixed(4)} • ${d.time[0]} (local time)`;
+    result.innerHTML=`<div class="card"><div class="flex" style="justify-content:space-between"><h2>Weather-based irrigation result</h2><span class="pill">LIVE FORECAST</span></div><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"><div class="mini">Max temperature<div class="metric">${Number.isFinite(tmax)?tmax.toFixed(1)+'°C':'N/A'}</div></div><div class="mini">Forecast rain<div class="metric">${rain.toFixed(1)} mm</div></div><div class="mini">Reference ET₀<div class="metric">${et0.toFixed(1)} mm/day</div></div><div class="mini">Soil moisture<div class="metric">${moist.toFixed(1)}%</div></div></div><div class="result"><b>Recommendation: ${escapeHtml(decision)}</b><br>Crop: ${escapeHtml(crop)} • Stage: ${escapeHtml(stage)} • Crop coefficient used: ${kc}<br>Estimated crop use (ETc): ${etc.toFixed(2)} mm/day<br>Effective forecast rain (assumed 80%): ${effectiveRain.toFixed(2)} mm<br><b>Estimated net water: ${netMm.toFixed(2)} mm/day</b><br><b>Approximate volume for ${area.toFixed(2)} acre(s): ${fmt(litres)} litres</b>${minutes!==null?`<br>Estimated pump run time at entered flow: ${fmt(minutes)} minutes`:''}</div><p class="note">${droneTemp||droneHum?`Optional drone sensor input received: ${droneTemp||'—'}°C, ${droneHum||'—'}% RH. `:'No drone sensor telemetry connected; '}Weather forecast is live, but soil moisture is manually entered. Volume is a planning estimate, not an automatic valve command. Confirm actual field moisture and irrigation efficiency before watering.</p><div class="warning">Pump status: NOT CONNECTED / NO AUTOMATIC CONTROL. To control a real pump, integrate a protected ESP32 relay/contactor and solenoid valve, add authenticated commands and fail-safe cutoff, then test on a supervised prototype.</div></div>`;
+  }catch(e){status.textContent='Weather lookup failed. Check internet and coordinates, then retry.';result.innerHTML=warn('Could not retrieve a reliable forecast: '+escapeHtml(e.message)+'. No guessed weather values were used.');}
+}
+
+</script></body></html>
